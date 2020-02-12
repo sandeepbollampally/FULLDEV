@@ -1,0 +1,51 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName" access="global" controller="InTheArea">
+<aura:attribute name="defaultSearch" type="String" />
+<aura:attribute name="location" type="Object"/>    
+<aura:attribute name="restaurantList" type="Object" />
+<aura:attribute name="recordId" type="Id" />
+<aura:attribute name="openItem" type="string"/>    
+<aura:attribute name="designHeight" type="string"/>
+<aura:attribute name="SObjectName" type="string"/>    
+<aura:attribute name="errorMessage" type="string" />
+	<aura:handler name="change" value="{!v.location}" action="{!c.updateSearch}" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <div aura:id="main" class="slds-box small">
+        <div aura:id="panelList">
+    <header>
+      <h2 class="slds-text-heading--small slds-m-bottom--small">In the Area</h2>
+      <div class="slds-form-element">
+        <label class="slds-form-element__label slds-assistive-text" for="searchTerm">Search</label>
+        <div class="slds-form-element__control">
+            <ui:inputText aura:id="searchTerm" label="searchTerm" placeholder="Search for..." change="{!c.updateSearch}" />
+        </div>
+      </div>
+    </header>
+	<p class="slds-hide" aura:id="warning">{!v.errorMessage}</p>            
+    <div aura:id="scrollableArea" class="slds-scrollable--y scroll-container">
+      <ul class="slds-list--vertical slds-has-dividers--top-space">
+		<aura:iteration items="{!v.restaurantList}" var="item" indexVar="i">
+        <li class="slds-list__item" onclick="{!c.showDetails}" data-record="{!i}">
+            <h3 class="slds-text-heading--small slds-m-bottom--x-small">{!item.name}</h3>
+            <img src="{!item.ratingImg}" alt="" class="ratingStars" />
+            <div class="slds-hide" data-details="{!i}" aura:id="datadiv">
+                <ul class="slds-list--vertical">
+                    <li class="slds-list__item">{!item.address}</li>
+                    <li class="slds-list__item">{!item.city},{!item.state}</li>
+                    <li class="slds-list__item">{!item.phone}</li>                    
+                </ul>
+            </div>
+        </li>
+        </aura:iteration>
+      </ul>
+    </div>
+  </div>
+        
+  <div class="slds-spinner_container slds-hide" aura:id="spinner">
+	  <div role="alert" class="slds-spinner_brand slds-spinner slds-spinner_medium" aria-hidden="false">
+		<div class="slds-spinner__dot-a"></div>
+        <div class="slds-spinner__dot-b"></div>
+    </div>
+  </div>
+
+</div>	
+</aura:component>

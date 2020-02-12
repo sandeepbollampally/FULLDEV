@@ -1,0 +1,7 @@
+.THIS.tableborder tdborder {
+	border:2px solid black;
+}
+
+.THIS lightning-icon > lightning-primitive-icon > svg {
+    fill:green;
+}

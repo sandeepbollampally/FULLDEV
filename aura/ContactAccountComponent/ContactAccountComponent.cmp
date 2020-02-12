@@ -1,0 +1,47 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" 
+                controller="ContactCtrl">
+    <aura:attribute name="recordId" type="Id"/>
+    <aura:attribute name="data" type="contact[]"/>
+    <aura:attribute name="error" type="String"/>
+    <aura:attribute name="InputText" type="string"/>
+    <aura:handler name="init" value="{!this}" action="{!c.loadContacts}"/>
+    <aura:if isTrue="{! !empty(v.error)}">
+        Error: <ui:outputText value="{!v.error}" class="slds-text-color_error slds-text-heading_small"/>
+    </aura:if>
+    <div style="height: 250px" class="slds-scrollable_y">
+		<table class="slds-table slds-table--bordered slds-table--cell-buffer">
+        	<thead>
+                <tr class="slds-line-height_reset">
+                    <th class="slds-text-title_caps">Contact Name</th>
+                    <th class="slds-text-title_caps">Created By</th>
+                    <th class="slds-text-title_caps">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <aura:iteration items="{!v.data}" var="con">
+                    <tr class="slds-hint-parent">
+                        <td class="slds-truncate" title="{!con.Name}">{!con.Name}</td>
+                        <td class="slds-truncate" title="{!con.CreatedBy.Name}">{!con.CreatedBy.Name}</td>
+                        <td>
+                            <button 
+                                    class="slds-button slds-button_brand" 
+                                    onclick="{!c.removeCSS}"
+                                    id="{!con.Id}"
+                                    name="{!con.Name}">Update</button>
+                        </td>
+                    </tr>
+                </aura:iteration>
+                <tr aura:id="newrow" class="slds-hide">
+                    <td>
+                        <ui:inputText value="{!v.InputText}"/>
+                    </td>
+                    <td></td>
+                    <td>
+                        <button class="slds-button slds-button_success" 
+                                onclick="{!c.applyCSS}">Save</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</aura:component>

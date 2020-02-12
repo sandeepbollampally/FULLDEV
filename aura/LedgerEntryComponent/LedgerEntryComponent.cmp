@@ -1,0 +1,86 @@
+<aura:component implements="flexipage:availableForAllPageTypes" controller="LedgerEntryUtility" access="global" >
+    
+    <!-- Attributes -->
+    <aura:attribute name="recordType" type="String" access="PRIVATE"/>
+    <aura:attribute name="amount" type="Decimal" access="PRIVATE"/>
+    <aura:attribute name="other" type="String" access="PRIVATE"/>
+    <aura:attribute name="entryDate" type="Date" access="PRIVATE"/>
+    <aura:attribute name="bankOptions" type="List" access="PRIVATE"/>
+    <aura:attribute name="categoryOptions" type="List" access="PRIVATE"/>
+    <aura:attribute name="typeOptions" type="List" access="PRIVATE"/>
+    <aura:attribute name="bankSelectedValue" type="String" access="PRIVATE"/>
+    <aura:attribute name="typeSelectedValue" type="String" access="PRIVATE"/>
+    <aura:attribute name="categorySelectedValue" type="String" access="PRIVATE"/>
+    <aura:attribute name="currencySelectedValue" type="String" access="PRIVATE"/>
+    
+    <!-- Events -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <!-- Header -->
+    <div class="slds-page-header">
+        <div class="slds-page-header__row">
+            <div class="slds-page-header__col-title">
+                <div class="slds-media">
+                    <div class="slds-media__figure">
+                        <span class="slds-icon_container" title="Ledger Entry">
+                            <lightning:icon iconName="custom:custom17" alternativeText="Stack of Cash" />
+                            <span class="slds-assistive-text">Ledger Entry</span> 
+                        </span>
+                    </div>
+                    <div class="slds-media__body">
+                        <div class="slds-page-header__name">
+                            <div class="slds-page-header__name-title">
+                                <h1>
+                                    <span class="slds-page-header__title slds-truncate"
+                                          title="New Ledger Entry">Ledger Entry</span>
+                                </h1>
+                            </div>
+                        </div>
+                        <p class="slds-page-header__name-meta">new ledger entry</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Input Form-->
+    <div class="slds-box slds-theme_default slds-form--stacked">
+        <lightning:select name="Country" label="Country" value="{!v.recordType}">
+            <option value="SELECT">SELECT</option>
+            <option value="0120I000000nhUcQAI">USA</option>
+            <option value="0120I000000nhUXQAY">India</option>
+        </lightning:select>
+        <lightning:select name="Bank" label="Bank Account" aura:id="Bank" value="{!v.bankSelectedValue}">
+            <option value="SELECT">SELECT</option>
+            <aura:iteration items="{!v.bankOptions}" var="option">
+                <option value="{!option.Id}">{!option.Name}</option>
+            </aura:iteration>
+        </lightning:select>
+        <lightning:select name="Type" label="Card Type" aura:id="Type" value="{!v.typeSelectedValue}">
+            <option value="SELECT">SELECT</option>
+            <aura:iteration items="{!v.typeOptions}" var="option">
+                <option text="{!option}" value="{!option}" />
+            </aura:iteration>
+        </lightning:select>
+        <lightning:input type="number" name="Amount" label="Amount" value="{!v.amount}" 
+                         formatter="currency" step="0.01"/>
+        <lightning:select name="Currency" label="Currency" value="{!v.currencySelectedValue}">
+            <option value="SELECT">SELECT</option>
+            <option value="USD">American Dollar</option>
+            <option value="INR">Indian Rupee</option>
+        </lightning:select>
+        <lightning:select name="Category" label="Category" aura:id="Category" value="{!v.categorySelectedValue}">
+            <option value="SELECT">SELECT</option>
+            <aura:iteration items="{!v.categoryOptions}" var="option">
+                <option text="{!option}" value="{!option}"/>
+            </aura:iteration>
+        </lightning:select>
+        <aura:if isTrue="{!v.categorySelectedValue == 'Misc'}">
+            <lightning:input name="Other" label="Other" value="{!v.other}" />
+        </aura:if>
+        <lightning:input type="date" name="EntryDate" label="Entry Date" value="{!v.entryDate}" />
+        <div class="slds-p-top_small slds-p-left_small slds-p-bottom_small slds-p-right_small slds-align_absolute-center">
+            <lightning:button variant="brand" label="Save Entry" title="Save Entry" iconName="utility:record_create" onclick="{!c.handleSave}" />
+        </div>
+    </div>
+</aura:component>

@@ -1,0 +1,15 @@
+<aura:component >
+    <aura:attribute name="contact" type="contact"/>
+	<lightning:card variant="Narrow" iconName="standard:contact">
+    	<aura:set attribute="title" >
+        	{!v.contact.Name}
+        </aura:set>
+        <aura:set attribute="footer">
+           <lightning:badge label="{!v.contact.Email}" />
+        </aura:set>
+        <aura:set attribute="actions">
+            <lightning:button name="details" label="Details" onclick="{!c.getContactDetails}"/>
+        </aura:set>
+        <p class="slds-p-horizontal--small">{!v.contact.phone}</p>
+    </lightning:card>
+</aura:component>

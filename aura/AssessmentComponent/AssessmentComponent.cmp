@@ -1,0 +1,19 @@
+<aura:component access="global" implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId">
+    <aura:attribute name="SelectedValue" type="String" default="" />
+    <aura:attribute name="contact" type="contact"/>
+    <lightning:select name="picklist" label="Assessment Picklist" aura:id="mySelect" onchange="{!c.handleChange}" >
+        <option>none</option>
+        <option>Text</option>
+        <option>Date</option>
+    </lightning:select>
+    <lightning:recordEditForm aura:id="editForm" objectApiName="Contact" recordId="{!v.recordId}">
+        <lightning:messages />
+        <aura:If isTrue="{!v.SelectedValue == 'Text'}">
+            <lightning:inputfield fieldName="AssessmentText__c"/>
+        </aura:If>
+        <aura:If isTrue="{!v.SelectedValue == 'Date'}">
+            <lightning:inputfield fieldName="AssessmentDate__c"/>
+        </aura:If>
+        <lightning:button class="slds-m-top_small" variant="brand" type="button" name="update" label="update" onclick="{!c.update}" />
+    </lightning:recordEditForm>
+</aura:component>

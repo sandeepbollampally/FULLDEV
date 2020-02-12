@@ -1,0 +1,5 @@
+<design:component label="In the Area">
+    <design:attribute name="defaultSearch" label="Default Search" default="Restaurants" datasource="Restaurants,Shopping,Nightlife,Active Life,Automative,Home Services" description="What would you like to search for?" />
+    <design:attribute name="designHeight" label="Height" datasource="small,medium,large" default="small" description="How tall should the component?" />
+    <design:attribute name="openItem" label="Open Item" />
+</design:component>

@@ -1,0 +1,18 @@
+.THIS {
+
+}
+
+.THIS{
+    padding : 10px 20px;
+    font-size: 25px;
+    font-weight: 300;
+    background-color: #F5FAFA;
+    border-width: 2px;
+    border-bottom: 2px #F5F5F5 solid;
+}
+.THIS.sandeep{
+    font-size: 250px;
+}
+.THIS.gap-1{
+    padding : 18px;
+}
